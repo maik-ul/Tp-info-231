@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+void build_skew_matrix(double u[3], double M[3][3]) {
+    // M = [u]_×
+    M[0][0] =  0.0;      M[0][1] = -u[2];   M[0][2] =  u[1];
+    M[1][0] =  u[2];     M[1][1] =  0.0;     M[1][2] = -u[0];
+    M[2][0] = -u[1];     M[2][1] =  u[0];    M[2][2] =  0.0;
+}
+
+void mat_vec_mul(double M[3][3], double v[3], double w[3]) {
+    for (int i = 0; i < 3; i++) {
+        w[i] = 0.0;
+        for (int j = 0; j < 3; j++) {
+            w[i] += M[i][j] * v[j];
+        }
+    }
+}
+
+int main() {
+    double u[3], v[3], w1[3], w2[3];
+    double M[3][3];
+    printf("Entrez les composantes du vecteur u (u_x u_y u_z) : ");
+    scanf("%lf %lf %lf", &u[0], &u[1], &u[2]);
+    printf("Entrez les composantes du vecteur v (v_x v_y v_z) : ");
+    scanf("%lf %lf %lf", &v[0], &v[1], &v[2]);
+
+    
+    build_skew_matrix(u, M);
+    mat_vec_mul(M, v, w1);
+
+    
+    cross_product(u, v, w2);  
+
+    printf("Résultat via matrice [u]_× * v : (%.6f, %.6f, %.6f)\n",
+           w1[0], w1[1], w1[2]);
+    printf("Résultat via cross_product direct : (%.6f, %.6f, %.6f)\n",
+           w2[0], w2[1], w2[2]);
+
+    return 0;
+}
+

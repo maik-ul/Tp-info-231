@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+void cross_product(double u[3], double v[3], double w[3]) {
+    w[0] = u[1]*v[2] - u[2]*v[1];
+    w[1] = u[2]*v[0] - u[0]*v[2];
+    w[2] = u[0]*v[1] - u[1]*v[0];
+}
+
+int main() {
+    double u[3], v[3], w[3];
+    printf("Entrez les composantes du vecteur u (u_x u_y u_z) : ");
+    scanf("%lf %lf %lf", &u[0], &u[1], &u[2]);
+    printf("Entrez les composantes du vecteur v (v_x v_y v_z) : ");
+    scanf("%lf %lf %lf", &v[0], &v[1], &v[2]);
+
+    cross_product(u, v, w);
+
+    printf("Le produit vectoriel u × v est : (%.6f, %.6f, %.6f)\n",
+           w[0], w[1], w[2]);
+
+    return 0;
+}
+
